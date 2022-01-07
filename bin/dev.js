@@ -1,7 +1,7 @@
 const webpack = require('webpack')
-const [ webpackClientConfig, webpackServerConfig ] = require('../webpack.config')
-const nodemon = require('nodemon')
 const path = require('path')
+const nodemon = require('nodemon')
+const [ webpackClientConfig, webpackServerConfig ] = require('../webpack.config')
 const webpackDevMiddleware = require('webpack-dev-middleware')
 const webpackHotMiddleware = require('webpack-hot-middleware')
 const express = require("express");
@@ -30,22 +30,24 @@ hmrServer.listen(3002, () => {
 
 const compiler = webpack(webpackServerConfig)
 
-compiler.run((err) => {
+/* compiler.run((err) => {
     if (err) {
         console.log('Compilation failed:', err)
     }
-    compiler.watch({}, (err) => {
-        if (err) {
-            console.log('Compilation failed:', err)
-        }
-        console.log('Compilation was successful')
-    })
 
-    nodemon({
-        script: path.resolve(__dirname, '../dist/server/server.js'),
-        watch: [
-            path.resolve(__dirname, '../dist/server'),
-            path.resolve(__dirname, '../dist/client')
-        ]
-    })
+}) */
+
+compiler.watch({}, (err) => {
+    if (err) {
+        console.log('Compilation failed:', err)
+    }
+    console.log('Compilation was successful')
+})
+
+nodemon({
+    script: path.resolve(__dirname, '../dist/server/server.js'),
+    watch: [
+        path.resolve(__dirname, '../dist/server'),
+        path.resolve(__dirname, '../dist/client')
+    ]
 })

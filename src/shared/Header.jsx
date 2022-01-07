@@ -5,7 +5,7 @@ const _Header = () => {
     return (
         <div>
             <h1>
-                Reddit for our own
+                Reddit for our own bug fixed
             </h1>
             
         </div>

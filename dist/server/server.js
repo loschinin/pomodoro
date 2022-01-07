@@ -36,7 +36,7 @@ eval("\nvar __importDefault = (this && this.__importDefault) || function (mod) {
   \*******************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-eval("\nvar __importDefault = (this && this.__importDefault) || function (mod) {\n    return (mod && mod.__esModule) ? mod : { \"default\": mod };\n};\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nexports.Header = void 0;\nconst react_1 = __importDefault(__webpack_require__(/*! react */ \"react\"));\nconst root_1 = __webpack_require__(/*! react-hot-loader/root */ \"react-hot-loader/root\");\nconst _Header = () => {\n    return (react_1.default.createElement(\"div\", null,\n        react_1.default.createElement(\"h1\", null, \"Reddit for our own\")));\n};\nexports.Header = (0, root_1.hot)(_Header);\n\n\n//# sourceURL=webpack://skillbox/./src/shared/Header.jsx?");
+eval("\nvar __importDefault = (this && this.__importDefault) || function (mod) {\n    return (mod && mod.__esModule) ? mod : { \"default\": mod };\n};\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nexports.Header = void 0;\nconst react_1 = __importDefault(__webpack_require__(/*! react */ \"react\"));\nconst root_1 = __webpack_require__(/*! react-hot-loader/root */ \"react-hot-loader/root\");\nconst _Header = () => {\n    return (react_1.default.createElement(\"div\", null,\n        react_1.default.createElement(\"h1\", null, \"Reddit for our own bug fixed\")));\n};\nexports.Header = (0, root_1.hot)(_Header);\n\n\n//# sourceURL=webpack://skillbox/./src/shared/Header.jsx?");
 
 /***/ }),
 
