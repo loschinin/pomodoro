@@ -1,6 +1,7 @@
 import React from 'react';
+import {hot} from 'react-hot-loader/root';
 
-const Header = () => {
+const _Header = () => {
     return (
         <div>
             <h1>
@@ -11,4 +12,4 @@ const Header = () => {
     );
 };
 
-export default Header;
+export const Header = hot(_Header);
