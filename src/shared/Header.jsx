@@ -1,13 +1,11 @@
 import React from 'react';
 import {hot} from 'react-hot-loader/root';
+import styles from './header.less';
 
 const _Header = () => {
     return (
-        <div>
-            <h1>
-                Reddit for our own bug fixed
-            </h1>
-            
+        <div className={styles.example}>
+                Hello React
         </div>
     );
 };
