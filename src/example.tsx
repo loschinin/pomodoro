@@ -12,11 +12,17 @@ export const concat: Concat = (firstString, secondString) => firstString + secon
 //
 // Напишите интерфейс для описания следующих данных
 
-interface IMyHomeTaskInterface {
-    [key: string]: string | (string | number | IMyHomeTaskInterface)[]
+interface ITask {
+    howIDoIt: string, someArray: (string | number)[]
 }
 
-const MyHomeTask: IMyHomeTaskInterface = {
+interface IMyHomeTask {
+    howIDoIt: string,
+    someArray: (string | number)[],
+    withData: ITask[]
+}
+
+const MyHomeTask: IMyHomeTask = {
     howIDoIt: "I Do It Wel",
     someArray: ["string one", "string two", 42],
     withData: [{ howIDoIt: "I Do It Wel", someArray: ["string one", 23] }],
@@ -33,8 +39,14 @@ const MyHomeTask: IMyHomeTaskInterface = {
 
 interface IMyArray<T> {
     [N: number]: T;
-    reduce(): (fn: (acc: T, value: T) => T, initial: T) => T;
+    reduce<U>(fn: (acc: U, value: T) => U, initial: U): U;
 }
+
+const myArray: IMyArray<number> = [1, 2, 3, 4];
+
+const numbersToString = myArray.reduce((total, current) => total = `${total} ${current}`, "");
+
+console.log(numbersToString); // => "1 2 3 4"
 
 /** 4. Работа с MappedTypes */
 //
@@ -96,7 +108,5 @@ type t = TMyType<typeof HomeComponent>;
 // Напишите такой тип TGetJSXPropsProp, который извлекает все HTML свойства, доступные для любого jsx элемента.
 //
 
-type TGetJSXPropsProp = JSX.Element
-
-
+type TGetJSXPropsProp<T extends keyof JSX.IntrinsicElements> = JSX.IntrinsicElements[T] extends React.DetailedHTMLProps<infer P, any> ? P : never
 
