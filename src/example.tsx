@@ -12,14 +12,10 @@ export const concat: Concat = (firstString, secondString) => firstString + secon
 //
 // Напишите интерфейс для описания следующих данных
 
-interface ITask {
-    howIDoIt: string, someArray: (string | number)[]
-}
-
 interface IMyHomeTask {
     howIDoIt: string,
     someArray: (string | number)[],
-    withData: ITask[]
+    withData?: IMyHomeTask[]
 }
 
 const MyHomeTask: IMyHomeTask = {
