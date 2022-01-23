@@ -1,6 +1,6 @@
 import React from 'react';
 import {hot} from "react-hot-loader/root";
-import '../../main.global.css'
+import '../main.global.css'
 import Layout from "./Layout/Layout";
 import {Header} from "./Header/Header";
 import Card from "./Card/Card";

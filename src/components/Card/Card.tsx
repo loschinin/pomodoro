@@ -19,7 +19,7 @@ const Card:FC<{ card: Card}> = ({card}) => {
             <Title title={card.title} id={card.id}/>
             <TextContent>{card.content}</TextContent>
             <div className={styles.buttons}>
-                <Dropdown list={['First Item', 'Second Item']}/>
+                <Dropdown list={['First Item', 'Закрыть']}/>
                 <Button text={'Show card'} />
             </div>
         </div>
