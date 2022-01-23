@@ -42,7 +42,7 @@ const myArray: IMyArray<number> = [1, 2, 3, 4];
 
 const numbersToString = myArray.reduce((total, current) => total = `${total} ${current}`, "");
 
-console.log(numbersToString); // => "1 2 3 4"
+// console.log(numbersToString); // => "1 2 3 4"
 
 /** 4. Работа с MappedTypes */
 //

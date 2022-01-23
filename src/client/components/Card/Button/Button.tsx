@@ -1,10 +1,10 @@
 import React, {FC} from 'react';
 import styles from "./Button.css";
 
-const Button:FC<{id: number}> = ({id}) => {
+const Button:FC<{text: string, id?: number, onClick?(): void}> = ({onClick, text}) => {
     return (
-        <div className={styles.button} onClick={() => console.log(`clicked ${id}`)}>
-            Click me
+        <div className={styles.button} onClick={onClick}>
+            {text}
         </div>
     );
 };

@@ -4,11 +4,10 @@ import styles from './header.css';
 import {concat} from "../../../example";
 
 const _Header = () => {
-    const result = concat('Hello ', 'World') // -> Hello World;
-    console.log(result)
+    const result = concat('Hello ', 'React')
     return (
         <div className={styles.header}>
-                Hello React
+            {result}
         </div>
     );
 };

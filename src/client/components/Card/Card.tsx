@@ -2,8 +2,9 @@ import React, {FC} from 'react';
 import styles from "./Card.css";
 import Title from "./Title/Title";
 import TextContent from "./TextContent/TextContent";
-import Button from "./Button/Button";
 import {Card} from "../App";
+import Dropdown from "../Dropdown/Dropdown";
+import Button from "./Button/Button";
 
     /** Описание логики разделения компонента */
     // 1. Компонент Card имеет заголовок, текстовой контент и кнопку
@@ -17,7 +18,10 @@ const Card:FC<{ card: Card}> = ({card}) => {
         <div className={styles.card}>
             <Title title={card.title} id={card.id}/>
             <TextContent>{card.content}</TextContent>
-            <Button id={card.id}/>
+            <div className={styles.buttons}>
+                <Dropdown list={['First Item', 'Second Item']}/>
+                <Button text={'Show card'} />
+            </div>
         </div>
     );
 };
