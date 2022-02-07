@@ -1,40 +1,41 @@
-import React, {useState} from 'react';
+import React, {ReactNode, useEffect, useState} from 'react';
 import styles from "./Dropdown.css";
-import MenuIcon from "../icons/MenuIcon";
 
 interface IDropdownProps {
-    list: string[]
+    button: ReactNode;
+    children: ReactNode;
+    isOpen?: boolean;
+    onOpen?: () => void;
+    onClose?: () => void;
 }
 
-const Dropdown = ({list}: IDropdownProps) => {
-    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+const NOOP = () => {}
+
+const Dropdown = ({button, children, isOpen, onOpen = NOOP, onClose = NOOP}: IDropdownProps) => {
+    const [isDropdownOpen, setIsDropdownOpen] = useState(isOpen);
+    useEffect(() => setIsDropdownOpen(isOpen), [isOpen])
+    useEffect(() => isDropdownOpen ? onOpen() : onClose(), [isDropdownOpen])
+
+    const handleOpen = () => {
+        if (isOpen === undefined) {
+            setIsDropdownOpen(!isDropdownOpen)
+        }
+    }
 
     return (
-        <div>
-            <button className={styles.menuButton} onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
-                <MenuIcon/>
-            </button>
+        <div className={styles.container}>
+            <div onClick={handleOpen}>
+                {button}
+            </div>
 
             {isDropdownOpen && (
                 <div className={styles.dropdown}>
-                    {list.map((item, index) => index !== list.length - 1 ? (
-                        <div key={item} onClick={() => onClickItemHandler(item)}>
-                            {item}
-                        </div>
-                    ) : (
-                        <button key={item} className={styles.closeButton} onClick={() => setIsDropdownOpen(false)}>
-                            <div className={styles.text}>{item}</div>
-                        </button>
-                    ))}
+                    {children}
                 </div>
             )}
             
         </div>
     );
-
-    function onClickItemHandler(item: string) {
-        setIsDropdownOpen(false)
-    }
 };
 
 export default Dropdown;
