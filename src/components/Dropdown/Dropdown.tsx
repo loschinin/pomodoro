@@ -23,7 +23,7 @@ const Dropdown = ({button, children, isOpen, onOpen = NOOP, onClose = NOOP}: IDr
     }
 
     return (
-        <div className={styles.container}>
+        <div>
             <div onClick={handleOpen}>
                 {button}
             </div>

@@ -19,7 +19,6 @@ const MenuItemsList = ({postId}: Props) => {
                 <WarningIcon/>
                 Пожаловаться
             </li>
-            
         </ul>
     );
 };
