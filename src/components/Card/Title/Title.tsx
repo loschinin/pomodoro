@@ -1,9 +1,9 @@
 import React, {FC} from 'react';
 
-const Title:FC<{title: string; id: number }> = ({title, id}) => {
+const Title:FC<{title: string; id?: number }> = ({title}) => {
     return (
         <h2>
-            № {id}. {title}
+            {title}
         </h2>
     );
 };

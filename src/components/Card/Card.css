@@ -1,10 +1,19 @@
 .card {
     background-color: #262626;
     padding: 8px;
+    display: grid;
+    grid-gap: 8px;
 }
 
 .buttons {
     display: grid;
     grid-template-columns: min-content auto;
     grid-gap: 1px;
+}
+
+.imgText {
+    display: flex;
+    column-gap: 8px;
+    justify-content: space-between;
+    align-items: center;
 }
