@@ -1,8 +1,24 @@
 .header {
-    display: flex;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: auto auto;
+    justify-content: space-between;
     align-items: center;
     background-color: #262626;
     font-size: 40px;
     height: 70px;
+    column-gap: 16px;
+    padding: 0 16px;
+}
+
+.user {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    column-gap: 16px;
+    text-decoration: none;
+    color: white;
+}
+
+.user:hover {
+    color: #db79ff;
 }

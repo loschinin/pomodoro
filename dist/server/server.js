@@ -76,7 +76,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \******************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n// Exports\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({\n\t\"header\": \"header__header--ugXA3\"\n});\n\n\n//# sourceURL=webpack://skillbox/./src/components/Header/header.css?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (__WEBPACK_DEFAULT_EXPORT__)\n/* harmony export */ });\n// Exports\n/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({\n\t\"header\": \"header__header--ugXA3\",\n\t\"user\": \"header__user--Sxkrh\"\n});\n\n\n//# sourceURL=webpack://skillbox/./src/components/Header/header.css?");
 
 /***/ }),
 
@@ -196,7 +196,7 @@ eval("\nvar __createBinding = (this && this.__createBinding) || (Object.create ?
   \******************************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-eval("\nvar __importDefault = (this && this.__importDefault) || function (mod) {\n    return (mod && mod.__esModule) ? mod : { \"default\": mod };\n};\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nexports.Header = void 0;\nconst react_1 = __importDefault(__webpack_require__(/*! react */ \"react\"));\nconst root_1 = __webpack_require__(/*! react-hot-loader/root */ \"react-hot-loader/root\");\nconst header_css_1 = __importDefault(__webpack_require__(/*! ./header.css */ \"./src/components/Header/header.css\"));\nconst example_1 = __webpack_require__(/*! ../../example */ \"./src/example.tsx\");\nconst _Header = () => {\n    const result = (0, example_1.concat)('Hello ', 'React');\n    return (react_1.default.createElement(\"div\", { className: header_css_1.default.header }, result));\n};\nexports.Header = (0, root_1.hot)(_Header);\n\n\n//# sourceURL=webpack://skillbox/./src/components/Header/Header.tsx?");
+eval("\nvar __importDefault = (this && this.__importDefault) || function (mod) {\n    return (mod && mod.__esModule) ? mod : { \"default\": mod };\n};\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nexports.Header = void 0;\nconst react_1 = __importDefault(__webpack_require__(/*! react */ \"react\"));\nconst root_1 = __webpack_require__(/*! react-hot-loader/root */ \"react-hot-loader/root\");\nconst header_css_1 = __importDefault(__webpack_require__(/*! ./header.css */ \"./src/components/Header/header.css\"));\nconst example_1 = __webpack_require__(/*! ../../example */ \"./src/example.tsx\");\nconst AnonymousAvatarIcon_1 = __importDefault(__webpack_require__(/*! ../icons/AnonymousAvatarIcon */ \"./src/components/icons/AnonymousAvatarIcon.tsx\"));\nconst _Header = () => {\n    const result = (0, example_1.concat)('Hello ', 'React');\n    const userName = 'User Name';\n    const CLIENT_ID = '1X0f9ABoGnaUyCkD8aqZXw';\n    const TYPE = 'code';\n    const RANDOM_STRING = 'random_string';\n    const URI = 'http://localhost:3001/auth';\n    const DURATION = 'permanent';\n    const SCOPE_STRING = 'read submit identity';\n    return (react_1.default.createElement(\"div\", { className: header_css_1.default.header },\n        result,\n        react_1.default.createElement(\"a\", { href: `https://www.reddit.com/api/v1/authorize?client_id=${CLIENT_ID}&response_type=${TYPE}&state=${RANDOM_STRING}&redirect_uri=${URI}&duration=${DURATION}&scope=${SCOPE_STRING}`, className: header_css_1.default.user },\n            react_1.default.createElement(AnonymousAvatarIcon_1.default, null),\n            \" \",\n            userName)));\n};\nexports.Header = (0, root_1.hot)(_Header);\n\n\n//# sourceURL=webpack://skillbox/./src/components/Header/Header.tsx?");
 
 /***/ }),
 
@@ -207,6 +207,16 @@ eval("\nvar __importDefault = (this && this.__importDefault) || function (mod) {
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 eval("\nvar __importDefault = (this && this.__importDefault) || function (mod) {\n    return (mod && mod.__esModule) ? mod : { \"default\": mod };\n};\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nconst react_1 = __importDefault(__webpack_require__(/*! react */ \"react\"));\nconst layout_css_1 = __importDefault(__webpack_require__(/*! ./layout.css */ \"./src/components/Layout/layout.css\"));\nconst Layout = ({ children }) => {\n    return (react_1.default.createElement(\"div\", { className: layout_css_1.default.layout }, children));\n};\nexports[\"default\"] = Layout;\n\n\n//# sourceURL=webpack://skillbox/./src/components/Layout/Layout.tsx?");
+
+/***/ }),
+
+/***/ "./src/components/icons/AnonymousAvatarIcon.tsx":
+/*!******************************************************!*\
+  !*** ./src/components/icons/AnonymousAvatarIcon.tsx ***!
+  \******************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+eval("\nvar __importDefault = (this && this.__importDefault) || function (mod) {\n    return (mod && mod.__esModule) ? mod : { \"default\": mod };\n};\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nconst react_1 = __importDefault(__webpack_require__(/*! react */ \"react\"));\nconst AnonymousAvatarIcon = () => {\n    return (react_1.default.createElement(\"svg\", { width: \"50\", height: \"50\", viewBox: \"0 0 50 50\", fill: \"none\", xmlns: \"http://www.w3.org/2000/svg\" },\n        react_1.default.createElement(\"path\", { d: \"M25 0C11.2 0 0 11.2 0 25C0 38.8 11.2 50 25 50C38.8 50 50 38.8 50 25C50 11.2 38.8 0 25 0ZM25 7.5C29.15 7.5 32.5 10.85 32.5 15C32.5 19.15 29.15 22.5 25 22.5C20.85 22.5 17.5 19.15 17.5 15C17.5 10.85 20.85 7.5 25 7.5ZM25 43C18.75 43 13.225 39.8 10 34.95C10.075 29.975 20 27.25 25 27.25C29.975 27.25 39.925 29.975 40 34.95C36.775 39.8 31.25 43 25 43Z\", fill: \"#D9D9D9\" })));\n};\nexports[\"default\"] = AnonymousAvatarIcon;\n\n\n//# sourceURL=webpack://skillbox/./src/components/icons/AnonymousAvatarIcon.tsx?");
 
 /***/ }),
 
@@ -266,7 +276,7 @@ eval("\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nexpo
   \******************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-eval("\nvar __importDefault = (this && this.__importDefault) || function (mod) {\n    return (mod && mod.__esModule) ? mod : { \"default\": mod };\n};\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nconst express_1 = __importDefault(__webpack_require__(/*! express */ \"express\"));\nconst server_1 = __importDefault(__webpack_require__(/*! react-dom/server */ \"react-dom/server\"));\nconst indexTemplate_1 = __webpack_require__(/*! ./indexTemplate */ \"./src/server/indexTemplate.js\");\nconst App_1 = __webpack_require__(/*! ../components/App */ \"./src/components/App.tsx\");\nconst app = (0, express_1.default)();\napp.use('/static', express_1.default.static('./dist/client'));\napp.get('/', (req, res) => {\n    res.send((0, indexTemplate_1.indexTemplate)(server_1.default.renderToString((0, App_1.App)())));\n});\napp.listen(3001, () => {\n    console.log('Server started on port 3001');\n});\n\n\n//# sourceURL=webpack://skillbox/./src/server/server.js?");
+eval("\nvar __importDefault = (this && this.__importDefault) || function (mod) {\n    return (mod && mod.__esModule) ? mod : { \"default\": mod };\n};\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nconst express_1 = __importDefault(__webpack_require__(/*! express */ \"express\"));\nconst server_1 = __importDefault(__webpack_require__(/*! react-dom/server */ \"react-dom/server\"));\nconst indexTemplate_1 = __webpack_require__(/*! ./indexTemplate */ \"./src/server/indexTemplate.js\");\nconst App_1 = __webpack_require__(/*! ../components/App */ \"./src/components/App.tsx\");\nconst app = (0, express_1.default)();\napp.use('/static', express_1.default.static('./dist/client'));\napp.get('/', (req, res) => {\n    res.send((0, indexTemplate_1.indexTemplate)(server_1.default.renderToString((0, App_1.App)())));\n});\napp.get('/auth', (req, res) => {\n    res.send((0, indexTemplate_1.indexTemplate)(server_1.default.renderToString((0, App_1.App)())));\n});\napp.listen(3001, () => {\n    console.log('Server started on port 3001');\n});\n\n\n//# sourceURL=webpack://skillbox/./src/server/server.js?");
 
 /***/ }),
 
