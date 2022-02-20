@@ -2,7 +2,8 @@
 
 :root {
     --black: #000000;
-    --pink: #8021a2;
+    --pink: #d96bff;
+    --light-pink: #df95ff;
     --white: #e0e0e0;
 }
 
@@ -16,7 +17,12 @@ body {
 }
 
 a {
-    color: var(--pink)
+    color: var(--pink);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--light-pink);
 }
 
 * {

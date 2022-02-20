@@ -3,11 +3,13 @@ import MenuIcon from "../../icons/MenuIcon";
 import Dropdown from "../../Dropdown/Dropdown";
 import MenuItemsList from "./MenuItemsList/MenuItemsList";
 
+const dropDownStyles = {width: '31px', height: '31px', borderRadius: '50%', backgroundColor: '#f1f0f0', display: 'flex', alignItems: 'center', justifyContent: 'center', transform: 'rotate(90deg)', cursor: 'pointer'}
+
 const Menu = () => {
     return (
         <>
             <Dropdown button={
-                <div style={{width: '31px', height: '31px', borderRadius: '50%', backgroundColor: '#f1f0f0', display: 'flex', alignItems: 'center', justifyContent: 'center', transform: 'rotate(90deg)', cursor: 'pointer'}}>
+                <div style={dropDownStyles}>
                     <MenuIcon />
                 </div>
                 }

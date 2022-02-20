@@ -13,7 +13,10 @@ export const indexTemplate = (content, token) => `
         </script>
     </head>
     <body>
+        <div id="modal_root" style="display: flex; justify-content: center;"></div>
+        <div id="drop_down_root"></div>
         <div id="react_root">${content}</div>
+        
     </body>
     </html>
 `
