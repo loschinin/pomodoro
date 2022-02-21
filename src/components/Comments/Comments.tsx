@@ -1,5 +1,6 @@
 import React, {FormEvent, useRef, useState} from 'react';
 import Button from "../Card/Button/Button";
+import useFocusTextarea from "../../hooks/useFocusTextarea";
 
 const Comments = () => {
 
@@ -8,19 +9,17 @@ const Comments = () => {
     const [commentForControlledForm, setCommentForControlledForm] = useState('')
     const [isCommentsOpened, setIsCommentsOpened] = useState(false)
 
-    const ref = useRef<HTMLInputElement>(null)
-    const textAreaRef = useRef<HTMLInputElement>(null)
+    const ref = useRef<HTMLTextAreaElement>(null)
+    const [textAreaRef] = useFocusTextarea()
+    console.log(textAreaRef)
 
     const handleSubmit = (event: FormEvent) => {
         event.preventDefault()
-
         ref.current?.value && setUncontrolledComment(`Михаил Рогов, ${ref.current?.value}`)
-
     }
 
     function handleOpenComments() {
         setIsCommentsOpened(!isCommentsOpened)
-        textAreaRef.current && textAreaRef.current?.focus();
     }
 
 
@@ -41,7 +40,7 @@ const Comments = () => {
                     <br/>
                     <br/>
                     <form onSubmit={handleSubmit} style={formStyles}>
-                        <input type="text" ref={ref} style={textAreaStyles} />
+                        <textarea ref={ref} style={textAreaStyles} />
                         <button style={{backgroundColor: 'black', width: '70px', height: '30px'}}>Send</button>
                     </form>
                     <hr/>
@@ -50,7 +49,7 @@ const Comments = () => {
                     <br/>
                     <br/>
                     <form style={formStyles}>
-                        <input ref={textAreaRef} value={valueForControlledForm} style={textAreaStyles} onChange={(event) => setValueForControlledForm(event.target.value)}/>
+                        <textarea ref={textAreaRef} value={valueForControlledForm} style={textAreaStyles} onChange={(event) => setValueForControlledForm(event.target.value)}/>
                         <Button text={'Send'} onClick={() => setCommentForControlledForm(valueForControlledForm)} />
                     </form>
                 </>
