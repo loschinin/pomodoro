@@ -49,7 +49,7 @@ const Comments = () => {
                     <br/>
                     <br/>
                     <form style={formStyles}>
-                        <textarea autoFocus ref={textAreaRef} value={valueForControlledForm} style={textAreaStyles} onChange={(event) => setValueForControlledForm(event.target.value)}/>
+                        <textarea ref={input => input && input.focus()} value={valueForControlledForm} style={textAreaStyles} onChange={(event) => setValueForControlledForm(event.target.value)}/>
                         <Button text={'Send'} onClick={() => setCommentForControlledForm(valueForControlledForm)} />
                     </form>
                 </>
