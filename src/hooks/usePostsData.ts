@@ -1,12 +1,14 @@
-import {useContext, useEffect, useState} from "react";
+import { useEffect, useState} from "react";
 import axios from "axios";
-import {tokenContext} from "../components/shared/context/tokenContext";
 import {PostsContext} from "../components/shared/context/PostsContext";
+import {useSelector} from "react-redux";
+import {RootState} from "../store";
 
 const usePostsData = () => {
-    const token = useContext(tokenContext)
+
+    const token = useSelector<RootState, string>(state => state.token)
+
     const [result, setResult] = useState<PostsContext[]>([{data: { subreddit: '', thumbnail: '' } }])
-    console.log({token})
 
     useEffect(() => {
         axios.get('https://oauth.reddit.com/best.json', {

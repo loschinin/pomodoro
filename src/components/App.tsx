@@ -4,24 +4,26 @@ import '../main.global.css'
 import Layout from "./Layout/Layout";
 import {Header} from "./Header/Header";
 import Container from "./Container/Container";
-import {useToken} from "../hooks/useToken";
-import {tokenContext} from "./shared/context/tokenContext";
-import {UserContextProvider} from "./shared/context/userContext";
 import {PostsContextProvider} from "./shared/context/PostsContext";
+import {createStore} from "redux";
+import {Provider,} from "react-redux";
+import {composeWithDevTools} from  "redux-devtools-extension";
+import {rootReducer} from "../store";
+
+
+const store = createStore(rootReducer, composeWithDevTools())
 
 const AppComponent = () => {
-    const [token] = useToken()
+
     return (
-        <tokenContext.Provider value={token}>
-            <UserContextProvider>
-                <Layout>
-                    <Header />
-                    <PostsContextProvider>
-                        <Container />
-                    </PostsContextProvider>
-                </Layout>
-            </UserContextProvider>
-        </tokenContext.Provider>
+        <Provider store={store} >
+            <Layout>
+                <Header />
+                <PostsContextProvider>
+                    <Container />
+                </PostsContextProvider>
+            </Layout>
+        </Provider>
     );
 };
 

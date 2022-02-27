@@ -37,7 +37,8 @@ module.exports = {
         rules: [
             {
             test: /\.[tj]sx?$/,
-            use: ['ts-loader']
+            use: ['ts-loader'],
+                exclude: /node_modules/
             },
             {
                 test: /\.css$/,
