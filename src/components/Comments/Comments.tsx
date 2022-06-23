@@ -1,8 +1,7 @@
 import React, {useState} from 'react';
 import Button from "../Card/Button/Button";
 import useFocusTextarea from "../../hooks/useFocusTextarea";
-import {useDispatch, useSelector} from "react-redux";
-import {RootState, updateComment} from "../../store";
+import {CommentForm} from "./CommentForm";
 
 const Comments = () => {
 
@@ -25,20 +24,13 @@ const Comments = () => {
     }
 
 
-    const commentTitle = useSelector<RootState, string>(state => state.commentTitle)
-    const dispatch = useDispatch()
-
-
-    const formStyles = {display: "flex", justifyContent: 'center', alignItems: 'center', columnGap: '8px' }
-    const textAreaStyles = {backgroundColor: '#d3d3d3', width: '400px', color: 'black'}
-
     return (
         <div>
             <h2>Comments</h2>
             <h3>First comment</h3>
             <h3>Second comment</h3>
-            <Button text={isCommentsOpened ? 'Скрыть комментарии' : 'Ответить'} onClick={handleOpenComments} />
-            {isCommentsOpened && (
+            <Button text={!isCommentsOpened ? 'Скрыть комментарии' : 'Ответить'} onClick={handleOpenComments} />
+            {!isCommentsOpened && (
                 <>
                     {/* <h2>From uncontrolled form</h2>
                     {uncontrolledComment}
@@ -49,14 +41,8 @@ const Comments = () => {
                         <button style={{backgroundColor: 'black', width: '70px', height: '30px'}}>Send</button>
                     </form>
                     <hr/> */}
-                    <h2>From controlled form</h2>
-                    {commentTitle}
-                    <br/>
-                    <br/>
-                    <form style={formStyles}>
-                        <textarea ref={input => input && input.focus()} value={commentTitle} style={textAreaStyles} onChange={(event) => dispatch(updateComment(event.target.value))}/>
-                        {/*<Button text={'Send'} onClick={() => setCommentForControlledForm(valueForControlledForm)} />*/}
-                    </form>
+                    <CommentForm />
+
                 </>
 
             )}

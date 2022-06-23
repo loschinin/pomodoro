@@ -25,7 +25,7 @@ export type RootState = {
 
 const initialState: RootState = {
     headerTitle: 'Hello React and Redux',
-    commentTitle: 'Hello skill',
+    commentTitle: '',
     token: '',
     me: {
         loading: true,
