@@ -3,14 +3,14 @@ import styles from "./Card.css";
 import Title from "./Title/Title";
 import TextContent from "./TextContent/TextContent";
 
-import Menu from "./Menu/Menu";
+// import Menu from "./Menu/Menu";
 
 const Card:FC<{ card: string, thumbnail: string}> = ({card, thumbnail}) => {
     return (
         <div className={styles.card}>
             <Title title={card} />
             <div className={styles.imgText}>
-                <Menu/>
+                {/*<Menu/>*/}
                 <TextContent>{card}</TextContent>
                 <img src={thumbnail} alt={thumbnail}/>
 
