@@ -5,12 +5,12 @@ import TextContent from "./TextContent/TextContent";
 
 // import Menu from "./Menu/Menu";
 
-const Card:FC<{ card: string, thumbnail: string}> = ({card, thumbnail}) => {
+const Card:FC<{ card: string, thumbnail: string, id?: number}> = ({card, thumbnail, id}) => {
     return (
         <div className={styles.card}>
             <Title title={card} />
             <div className={styles.imgText}>
-                {/*<Menu/>*/}
+                Index: {id}
                 <TextContent>{card}</TextContent>
                 <img src={thumbnail} alt={thumbnail}/>
 

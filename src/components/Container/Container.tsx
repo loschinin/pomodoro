@@ -1,6 +1,6 @@
-import React, {useContext, useEffect, useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import styles from './Container.css';
-import {PostsContext, postsContext} from "../shared/context/PostsContext";
+import {PostsContext} from "../shared/context/PostsContext";
 import Card from "../Card/Card";
 import axios from "axios";
 import {useSelector} from "react-redux";
@@ -11,30 +11,32 @@ const Container = () => {
     const token = useSelector<RootState>(state => state.token)
 
     const [posts, setPosts] = useState<any[]>([]);
-    const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [errorLoading, setErrorLoading] = useState<string>('');
+    const [isLoading, setIsLoading] = useState(false);
+    const [errorLoading, setErrorLoading] = useState('');
     const bottomOfList = useRef<HTMLDivElement>(null)
-    const [after, setAfter] = useState('');
+    const [nextAfter, setNextAfter] = useState('');
     const [loadCounter, setLoadCounter] = useState(0)
 
-    const [isLoadingStop, setIsLoadingStop] = useState<boolean>(false);
+    const [isLoadingStop, setIsLoadingStop] = useState(false);
 
     useEffect(() => {
         async function load () {
             setIsLoading(true);
             setErrorLoading('');
             try {
-                const response = await axios.get('https://oauth.reddit.com/rising', {
+                const response = await axios.get('https://oauth.reddit.com/best', {
                     headers: { Authorization: `bearer ${token}`},
                     params: {
-                        limit: 1,
-                        after,
+                        limit: 3,
+                        after: nextAfter,
                     }
                 })
-                const data = response?.data?.data
-                setPosts(prevState => [...prevState, ...data.children]);
-                setAfter(data?.after);
                 console.log('response', response)
+                const data = response?.data?.data
+                setPosts(prevState => prevState.concat(...data.children));
+                //setPosts(prevState => [...prevState, ...data.children]);
+                setNextAfter(data?.after);
+
                 setLoadCounter(prevState => prevState + 1)
 
             } catch (error) {
@@ -46,11 +48,13 @@ const Container = () => {
         }
 
         const observer = new IntersectionObserver((entries) => {
-            if(entries[0].isIntersecting) {
-                console.log('load more')
-                if (!isLoadingStop) load();
+            console.log('entries', entries)
+            console.log('IntersectionObserver')
+            if(entries[0].isIntersecting && !isLoadingStop) {
+
+                load();
                 console.log( 'loadCounter', loadCounter );
-                console.log( 'isLoadingStop', isLoadingStop );
+                // console.log( 'isLoadingStop', isLoadingStop );
             }
         }, {
             rootMargin: '10px',
@@ -64,48 +68,38 @@ const Container = () => {
                 observer.unobserve(bottomOfList.current)
             }
         }
-
-
-    }, [bottomOfList.current, after, token, loadCounter, isLoadingStop])
+    }, [bottomOfList.current, token, nextAfter, isLoadingStop])
 
     function handleLoadMore() {
         setIsLoadingStop(false);
     }
 
-    const [bigData] = useContext(postsContext)
+
 
     const toCapitalize = (str: string) => str.charAt(0).toUpperCase() + str.slice(1)
     console.log( 'POSTS', posts );
 
-    const isOldData = false;
 
     useEffect(() => {
-
-        [3, 6, 9, 12].map((c) => {
-            c === loadCounter && setIsLoadingStop(true);
-        })
+        if (loadCounter !== 0 && loadCounter % 3 == 0) {
+            setIsLoadingStop(true);
+        }
     },[loadCounter])
 
     return (
         <div>
             {posts.length === 0 && !isLoading && !errorLoading && 'no posts'}
 
-            {isLoading
-                ? 'Loading......'
-                : <div className={styles.container}>
-                    {posts.map(({data}) => <Card key={data.id + Math.random()} card={data.title} thumbnail={''}/>)}
-                        <div ref={bottomOfList} />
-                    {isLoadingStop && <Button text={'Загрузить еще...'} onClick={handleLoadMore}/>}
+            {<div className={styles.container}>
+                    {posts.length && posts.map((d: PostsContext, index) => {
+                        return (<Card key={`${d.data.thumbnail}${Math.random()}`} card={toCapitalize(d.data.subreddit)}
+                                     thumbnail={d.data.thumbnail} id={index}/>)
+                    })}
+                {isLoading && 'Loading...'}
+                    {isLoadingStop && <Button text={'Load more...'} onClick={handleLoadMore}/>}
                     </div>
             }
-
-
-            <hr/>
-            {isOldData && bigData.length && bigData.map((d: PostsContext) => {
-                // console.log(d)
-                return d.data.thumbnail.endsWith('.jpg') &&
-                    (<Card key={d.data.thumbnail} card={toCapitalize(d.data.subreddit)} thumbnail={d.data.thumbnail}/>)
-            })}
+            <div ref={bottomOfList} />
 
             {errorLoading &&
                 <div role={"alert"}>

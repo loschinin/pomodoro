@@ -4,7 +4,6 @@ import '../main.global.css'
 import Layout from "./Layout/Layout";
 import {Header} from "./Header/Header";
 import Container from "./Container/Container";
-import {PostsContextProvider} from "./shared/context/PostsContext";
 import {applyMiddleware, createStore, Middleware} from "redux";
 import {Provider,} from "react-redux";
 import {composeWithDevTools} from  "redux-devtools-extension";
@@ -26,9 +25,7 @@ const AppComponent = () => {
         <Provider store={store} >
             <Layout>
                 <Header />
-                <PostsContextProvider>
-                    <Container />
-                </PostsContextProvider>
+                <Container />
             </Layout>
         </Provider>
     );
