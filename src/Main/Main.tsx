@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import 'react-datepicker/dist/react-datepicker.css';
 import './Main.css';
 import Task from '../Task/Task';
+import Timer from '../Timer/Timer';
 
 const mockData = [
   {
@@ -26,6 +26,7 @@ const Main = () => {
 
   return (
     <div className={'tasks'}>
+      <Timer />
       <div className={'adding'}>
         <input
           value={text}

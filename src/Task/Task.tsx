@@ -43,7 +43,7 @@ const Task: FC<{
         name={index.toString()}
         value={index.toString()}
         checked={isChecked}
-        onClick={() => {
+        onChange={() => {
           setTasks(
             tasks.map((t, i) =>
               i === index ? { ...t, done: !isChecked } : t

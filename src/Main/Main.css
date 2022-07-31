@@ -11,6 +11,13 @@
     background-color: #282c34;
 }
 
+.sorting {
+    background-color: #282c34;
+    padding: 16px;
+    display: flex;
+    column-gap: 16px;
+}
+
 .text-input {
     width: 100%;
     color: #ffffff;
@@ -32,6 +39,7 @@ button {
 button:disabled {
     color: gray;
     background-color: #282c34;
+    cursor: default;
 }
 
 input:focus {
