@@ -9,7 +9,7 @@
     column-gap: 16px;
 }
 
-.title-input {
+.task-edit-input {
     width: 100%;
     background-color: #282c34;
     color: white;
@@ -19,4 +19,51 @@
 
 .task-title {
     width: 100%;
+    cursor: pointer;
 }
+
+.task-date {
+    white-space: nowrap;
+    color: #b4b0b0;
+    font-size: small;
+}
+
+.task-date-time {
+    display: flex;
+    flex-direction: column;
+    row-gap: 8px;
+    align-items: flex-end;
+}
+
+.task-checkbox {
+    opacity: 0;
+    position: absolute;
+}
+
+.task-checkbox+label {
+    display: flex;
+    width: 32px;
+}
+
+.task-checkbox+label::before {
+    background-color: #a6a6a6;
+    content: '';
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.task-checkbox:checked+label::before {
+    background-color: #6b1b24;
+}
+
+.task-checkbox:not(:disabled):active+label::before {
+    background-color: #ffffff;
+}
+
+
+
+
+
+

@@ -4,12 +4,22 @@ import './Main.css';
 import Task from '../Task/Task';
 
 const mockData = [
-  'Statistic. This is my second task - create statistics page in app',
-  'App main Page. This is my first task - create main page in app',
+  {
+    done: false,
+    task: 'Statistic. This is my second task - create statistics page in app',
+    date: new Date('July 17, 2022 12:45:00'),
+  },
+  {
+    done: true,
+    task: 'App main Page. This is my first task - create main page in app',
+    date: new Date('June 25, 2022 03:24:00'),
+  },
 ];
 
+export type TaskType = { done: boolean; task: string; date: Date };
+
 const Main = () => {
-  const [tasks, setTasks] = useState<string[]>(mockData);
+  const [tasks, setTasks] = useState<TaskType[]>(mockData);
 
   const initialText = `This is my new task`;
   const [text, setText] = useState(initialText);
@@ -27,7 +37,10 @@ const Main = () => {
         <button
           disabled={!text}
           onClick={() => {
-            setTasks([text, ...tasks]);
+            setTasks([
+              { done: false, task: text, date: new Date() },
+              ...tasks,
+            ]);
             setText(initialText);
           }}
         >
@@ -37,25 +50,35 @@ const Main = () => {
       <div className={'sorting'}>
         <button
           onClick={() => {
-            setTasks([...tasks.sort((a, b) => a.localeCompare(b))]);
+            setTasks([
+              ...tasks.sort(
+                (a, b) => a.date.valueOf() - b.date.valueOf()
+              ),
+            ]);
           }}
         >
-          sort asc
+          old
         </button>
         <button
           onClick={() => {
-            setTasks([...tasks.sort((a, b) => b.localeCompare(a))]);
+            setTasks([
+              ...tasks.sort(
+                (a, b) => b.date.valueOf() - a.date.valueOf()
+              ),
+            ]);
           }}
         >
-          sort desc
+          new
         </button>
       </div>
-      <div style={{ borderBottom: '1px solid white' }} />
+
       {tasks.map((task, index) => (
         <Task
           key={Math.random()}
-          id={index}
-          title={task}
+          index={index}
+          title={task.task}
+          date={task.date}
+          isChecked={task.done}
           removeTask={() => removeTask(index)}
           tasks={tasks}
           setTasks={setTasks}

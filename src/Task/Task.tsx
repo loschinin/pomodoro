@@ -1,37 +1,78 @@
 import React, { FC, useState } from 'react';
 import './Task.css';
+import moment from 'moment';
+import { TaskType } from '../Main/Main';
 
 const Task: FC<{
-  id: number;
+  index: number;
   title: string;
+  date: Date;
+  isChecked: boolean;
   removeTask(): void;
-  tasks: string[];
-  setTasks(tasks: string[]): void;
-}> = ({ id, title, tasks, removeTask, setTasks }) => {
+  tasks: TaskType[];
+  setTasks(tasks: TaskType[]): void;
+}> = ({
+  index,
+  title,
+  date,
+  isChecked,
+  tasks,
+  removeTask,
+  setTasks,
+}) => {
   const [isEdit, setIsEdit] = useState(false);
   const [editedTitle, setEditedTitle] = useState(title);
+  const formattedDate = moment(date).format('ddd D MMM');
+  const formattedTime = moment(date).format('HH:mm');
   return (
     <div
       className={'task'}
-      onDoubleClick={() => setIsEdit(true)}
       onBlur={() => {
         setIsEdit(false);
-        setTasks(tasks.map((t, i) => (i === id ? editedTitle : t)));
+        setTasks(
+          tasks.map((t, i) =>
+            i === index ? { ...t, task: editedTitle } : t
+          )
+        );
       }}
     >
+      <input
+        className="task-checkbox"
+        type="checkbox"
+        id={index.toString()}
+        name={index.toString()}
+        value={index.toString()}
+        checked={isChecked}
+        onClick={() => {
+          setTasks(
+            tasks.map((t, i) =>
+              i === index ? { ...t, done: !isChecked } : t
+            )
+          );
+        }}
+      />
+      <label htmlFor={index.toString()} />
       {isEdit ? (
         <input
           value={editedTitle}
           onChange={e => setEditedTitle(e.target.value)}
           autoFocus
-          className={'title-input'}
+          className={'task-edit-input'}
           title={'Onblur to Save'}
         />
       ) : (
-        <span className={'task-title'} title={'Double click to Edit'}>
+        <span
+          onDoubleClick={() => setIsEdit(true)}
+          className={'task-title'}
+          title={'Double click to Edit'}
+        >
           {title}
         </span>
       )}
+      <div className={'task-date-time'}>
+        <span className={'task-date'}>{formattedDate}</span>
+        <span className={'task-date'}>{formattedTime}</span>
+      </div>
       <button onClick={() => removeTask()}>-</button>
     </div>
   );
