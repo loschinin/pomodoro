@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import './Main.css';
 import Task from '../Task/Task';
 import Timer from '../Timer/Timer';
+import SortIcon from '@mui/icons-material/Sort';
+import AddIcon from '@mui/icons-material/Add';
+import { Button, Input, ToggleButton } from '@mui/material';
 
 const mockData = [
   {
@@ -23,19 +26,22 @@ const Main = () => {
 
   const initialText = `This is my new task`;
   const [text, setText] = useState(initialText);
+  const [isSortedByNew, setIsSortedByNew] = useState(false);
 
   return (
-    <div className={'tasks'}>
+    <div className={'main'}>
+      <div className={'title'}>Timer</div>
       <Timer />
+      <div className={'title'}>Add new task</div>
       <div className={'adding'}>
-        <input
+        <Input
           value={text}
           onChange={e => setText(e.target.value)}
           placeholder={'Please, white some task text'}
           className={'text-input'}
           autoFocus
         />{' '}
-        <button
+        <Button
           disabled={!text}
           onClick={() => {
             setTasks([
@@ -44,35 +50,25 @@ const Main = () => {
             ]);
             setText(initialText);
           }}
+          variant={'contained'}
         >
-          +
-        </button>
+          <AddIcon />
+        </Button>
       </div>
-      <div className={'sorting'}>
-        <button
-          onClick={() => {
-            setTasks([
-              ...tasks.sort(
-                (a, b) => a.date.valueOf() - b.date.valueOf()
-              ),
-            ]);
-          }}
+      <div className={'title'}>
+        Tasks sorting by date{' '}
+        <ToggleButton
+          value="check"
+          selected={isSortedByNew}
+          onChange={handleSort}
+          size={'small'}
         >
-          old
-        </button>
-        <button
-          onClick={() => {
-            setTasks([
-              ...tasks.sort(
-                (a, b) => b.date.valueOf() - a.date.valueOf()
-              ),
-            ]);
-          }}
-        >
-          new
-        </button>
+          <SortIcon
+            fontSize={'small'}
+            className={isSortedByNew ? 'rotated-sort-icon' : ''}
+          />
+        </ToggleButton>
       </div>
-
       {tasks.map((task, index) => (
         <Task
           key={Math.random()}
@@ -90,6 +86,19 @@ const Main = () => {
 
   function removeTask(index: number) {
     setTasks(tasks.filter((_, i) => i !== index));
+  }
+
+  function handleSort() {
+    setIsSortedByNew(!isSortedByNew);
+    setTasks([
+      ...tasks.sort((a, b) => {
+        if (isSortedByNew) {
+          return b.date.valueOf() - a.date.valueOf();
+        } else {
+          return a.date.valueOf() - b.date.valueOf();
+        }
+      }),
+    ]);
   }
 };
 

@@ -6,16 +6,24 @@
     align-items: center;
     background-color: #282c34;
     padding: 16px;
+    height: 42px;
+}
+
+.counter {
+    width: 100px;
 }
 
 .timer-input {
-    color: white;
-    font-size: 20px;
-    background-color: #808080;
-    padding: 8px;
     width: 100px;
 }
 
 .goal-time {
-    cursor: pointer;
+    cursor: url(../pencil.png), auto;
+    border: 2px solid snow;
+    padding: 12px 20px;
+}
+
+.goal-time:hover {
+    border-color: #e91e63;
+
 }

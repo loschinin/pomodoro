@@ -6,8 +6,7 @@ import './Header.css';
 
 const Header = () => {
   const location = useLocation();
-  const links = ['main', 'statistics'];
-  console.log(location.pathname);
+  const links = ['pomodoro', 'statistics'];
   return (
     <div className={'header'}>
       <img src={pomodoro} alt={''} />
@@ -16,11 +15,11 @@ const Header = () => {
           key={link}
           className={
             location.pathname === `/${link}` ||
-            (location.pathname === '/' && link === 'main')
+            (location.pathname === '/' && link === 'pomodoro')
               ? 'active'
               : ''
           }
-          to={link === 'main' ? '/' : link}
+          to={link === 'pomodoro' ? '/' : link}
         >
           {link.toUpperCase()}
         </Link>

@@ -1,7 +1,18 @@
-.tasks {
+.main {
     display: flex;
     flex-direction: column;
     row-gap: 8px;
+}
+
+.title {
+    color: white;
+    font-size: 25px;
+    display: flex;
+    column-gap: 15px;
+}
+
+.rotated-sort-icon {
+    transform: rotateX(180deg);
 }
 
 .adding {
@@ -11,35 +22,8 @@
     background-color: #282c34;
 }
 
-.sorting {
-    background-color: #282c34;
-    padding: 16px;
-    display: flex;
-    column-gap: 16px;
-}
-
 .text-input {
     width: 100%;
-    color: #ffffff;
-    padding: 8px 16px;
-    font-size: 20px;
-    background-color: #3d3d3d;
-}
-
-
-
-button {
-    color: white;
-    background-color: #670221;
-    padding: 8px 40px;
-    font-size: 20px;
-    cursor: pointer;
-}
-
-button:disabled {
-    color: gray;
-    background-color: #282c34;
-    cursor: default;
 }
 
 input:focus {

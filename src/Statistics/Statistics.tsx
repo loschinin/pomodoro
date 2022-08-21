@@ -5,19 +5,26 @@ import HighchartsReact from 'highcharts-react-official';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import moment from 'moment';
+import { Button } from '@mui/material';
+import { timeConverter } from '../helpers';
+import { chartOptions } from './chartOptions';
 
 const convertDate = (date: Date | string) =>
   new Date(moment(date).format('ddd D MMM')).valueOf();
 
+type Data = { name: string; y: number };
+type DataForStorage = { date: string; time: number };
+
 const Statistics = () => {
   const hasLocalStoragePomodoroItem =
     localStorage.getItem('pomodoro');
-  const data =
-    hasLocalStoragePomodoroItem &&
-    JSON.parse(localStorage.getItem('pomodoro') || '');
+  const data: DataForStorage[] = hasLocalStoragePomodoroItem
+    ? JSON.parse(localStorage.getItem('pomodoro') || '')
+    : [];
 
-  const [selectedDaysData, setSelectedDaysData] =
-    useState<{ name: string; y: number }[]>(data);
+  const [selectedDaysData, setSelectedDaysData] = useState<Data[]>(
+    data.map(d => ({ name: d.date, y: d.time }))
+  );
 
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState<Date | null>(null);
@@ -27,102 +34,85 @@ const Statistics = () => {
     setEndDate(end);
   };
 
-  // console.log('startDate', startDate);
-  //
-  // console.log('data', data);
-  // console.log(selectedDaysData);
-  const options = {
-    chart: {
-      type: 'column',
-    },
-    title: {
-      align: 'left',
-      text: 'Pomodoro activity',
-    },
-    subtitle: {
-      align: 'left',
-    },
-    accessibility: {
-      announceNewData: {
-        enabled: true,
-      },
-    },
-    xAxis: {
-      type: 'category',
-    },
-    yAxis: {
-      title: {
-        text: 'Working time with pomodoro',
-      },
-    },
-    legend: {
-      enabled: false,
-    },
-    plotOptions: {
-      series: {
-        borderWidth: 0,
-        dataLabels: {
-          enabled: true,
-          format: '{point.y:f}',
-        },
-      },
-    },
+  const totalUsingTimeForToday = timeConverter(
+    data
+      .filter(
+        (obj: { date: string }) =>
+          convertDate(obj.date) === convertDate(new Date())
+      )
+      .reduce((acc, curr) => {
+        return acc + curr.time;
+      }, 0)
+  );
 
-    tooltip: {
-      headerFormat:
-        '<span style="font-size:11px">{series.name}</span><br>',
-      pointFormat:
-        '<span style="color:{point.color}">{point.name}</span>: <b>{point.y:f}</b<br/>',
-    },
-
-    series: [
-      {
-        name: 'Pomodoro',
-        colorByPoint: true,
-        data: selectedDaysData,
-      },
-    ],
-  };
   return (
     <div className={'stat'}>
-      {hasLocalStoragePomodoroItem ? (
-        <>
-          <div>
-            <DatePicker
-              selected={startDate}
-              onChange={onChange}
-              startDate={startDate}
-              endDate={endDate}
-              selectsRange
-              inline
-            />
-            <button
-              onClick={() => {
-                const filteredData = data.filter(
-                  (obj: { name: string }) => {
-                    const d = convertDate(obj.name);
-                    return (
-                      d >= convertDate(startDate) &&
-                      d <= convertDate(endDate || startDate)
-                    );
-                  }
-                );
-                setSelectedDaysData(filteredData);
+      <div className={'chart'}>
+        {hasLocalStoragePomodoroItem ? (
+          <>
+            <div>
+              <DatePicker
+                selected={startDate}
+                onChange={onChange}
+                startDate={startDate}
+                endDate={endDate}
+                selectsRange
+                inline
+              />
+              <Button
+                className={'date-picker-button'}
+                onClick={handleConfirmPeriod}
+                variant={'contained'}
+              >
+                confirm period
+              </Button>
+            </div>
+            <HighchartsReact
+              highcharts={Highcharts}
+              options={{
+                ...chartOptions,
+                series: [
+                  {
+                    date: 'Pomodoro',
+                    colorByPoint: true,
+                    data: selectedDaysData,
+                  },
+                ],
               }}
-            >
-              confirm period
-            </button>
-          </div>
-          <HighchartsReact
-            highcharts={Highcharts}
-            options={options}
-          />
-        </>
-      ) : (
-        'No data for chart. Start to use Pomodoro'
-      )}
+            />
+          </>
+        ) : (
+          'No data for chart. Start to use Pomodoro'
+        )}
+      </div>
+      <div>
+        <h1>
+          Total pomodoro using time for today {totalUsingTimeForToday}
+        </h1>
+        <h1>
+          Total stops quantity{' '}
+          {JSON.parse(
+            localStorage.getItem('pomodoroStopQuantity') || ''
+          )}
+        </h1>
+      </div>
     </div>
   );
+
+  function handleConfirmPeriod() {
+    const filteredData = data.filter((obj: { date: string }) => {
+      const d = convertDate(obj.date);
+      return (
+        d >= convertDate(startDate) &&
+        d <= convertDate(endDate || startDate)
+      );
+    });
+    const convertedData = filteredData.map(d => ({
+      name: d.date,
+      y: d.time,
+    }));
+    setSelectedDaysData(convertedData);
+  }
 };
 
 export default Statistics;

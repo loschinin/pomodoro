@@ -2,39 +2,31 @@ import React, { useCallback, useEffect, useState } from 'react';
 import sound from './sound.mp3';
 import './Timer.css';
 import moment from 'moment';
-
-const addZero = (number: number) =>
-  number < 10 ? `0${number}` : number;
-
-export const timeConverter = (
-  value: number,
-  onlyMin?: boolean,
-  withHours?: boolean
-) => {
-  const hours = Math.floor(value / 3600);
-  const minutes = Math.floor((value - hours * 3600) / 60);
-  const seconds = value - hours * 3600 - minutes * 60;
-  if (withHours) {
-    return `${addZero(hours)}:${addZero(minutes)}:${addZero(
-      seconds
-    )}`;
-  }
-  return onlyMin
-    ? minutes
-    : `${addZero(minutes)}:${addZero(seconds)}`;
-};
+import Button from '@mui/material/Button';
+import TimerIcon from '@mui/icons-material/Timer';
+import PauseIcon from '@mui/icons-material/Pause';
+import StopIcon from '@mui/icons-material/Stop';
+import { TextField } from '@mui/material';
+import { timeConverter } from '../helpers';
 
 const Timer = () => {
   const [counter, setCounter] = useState(0);
   const [counterId, setCounterId] = useState(0);
-  const [isStartDisabled, setIsStartDisabled] = useState(false);
-  const [goalTime, setGoalTime] = useState(2);
+  const [isStarted, setIsStarted] = useState(false);
+  const [goalTime, setGoalTime] = useState(599);
+  const [stopQuantity, setStopQuantity] = useState<number>(
+    localStorage.getItem('pomodoroStopQuantity')
+      ? +JSON.parse(
+          localStorage.getItem('pomodoroStopQuantity') || ''
+        )
+      : 0
+  );
   const [isGoalTimeEdit, setIsGoalTimeEdit] = useState(false);
 
   const stopCounter = useCallback(() => {
     clearInterval(counterId);
     setCounter(0);
-    setIsStartDisabled(false);
+    setIsStarted(false);
   }, [counterId]);
 
   useEffect(() => {
@@ -47,8 +39,8 @@ const Timer = () => {
         ? JSON.parse(localStorage.getItem('pomodoro') || '')
         : [];
       const newData = {
-        name: moment(now.toString()).format('ddd D MMM HH:mm:ss'),
-        y: counter,
+        date: moment(now.toString()).format('ddd D MMM HH:mm:ss'),
+        time: counter,
       };
 
       localStorage.setItem(
@@ -58,36 +50,50 @@ const Timer = () => {
     }
   }, [goalTime, counter, stopCounter]);
 
+  useEffect(() => {
+    localStorage.setItem(
+      'pomodoroStopQuantity',
+      JSON.stringify(stopQuantity)
+    );
+  }, [stopQuantity]);
+
   return (
     <div className={'timer'}>
-      <button
-        onClick={() => startCounter()}
-        disabled={isStartDisabled}
+      <Button
+        onClick={isStarted ? pauseCounter : startCounter}
+        variant={'contained'}
       >
-        {' \u23F3 '}
-      </button>
-      {timeConverter(counter)}
-      <button onClick={() => pauseCounter()}>{' \u23F8 '}</button>
-      <button onClick={() => stopCounter()}>{' \u23F9 '}</button>
+        {isStarted ? <PauseIcon /> : <TimerIcon />}
+      </Button>
+      <div className={'counter'}>{timeConverter(counter)}</div>
+      <Button
+        onClick={stopHandler}
+        variant={'contained'}
+        disabled={counter === 0}
+      >
+        <StopIcon />
+      </Button>
       GOAL
       {isGoalTimeEdit ? (
-        <input
+        <TextField
           type={'number'}
           value={goalTime}
+          variant={'filled'}
+          label={'seconds'}
           onChange={e => setGoalTime(+e.target.value)}
           onBlur={() => setIsGoalTimeEdit(false)}
           autoFocus
           className={'timer-input'}
           title={'Onblur to save'}
+          size={'small'}
         />
       ) : (
         <span
-          onDoubleClick={() => setIsGoalTimeEdit(true)}
-          title={'Double click to Edit'}
+          onClick={() => setIsGoalTimeEdit(true)}
+          title={'Click to Edit'}
           className={'goal-time'}
-        >
-          {timeConverter(goalTime)}
-        </span>
+          children={timeConverter(goalTime)}
+        />
       )}
     </div>
   );
@@ -97,12 +103,17 @@ const Timer = () => {
       setCounter(prevState => prevState + 1);
     }, 1000);
     setCounterId(+id);
-    setIsStartDisabled(true);
+    setIsStarted(true);
   }
 
   function pauseCounter() {
     clearInterval(counterId);
-    setIsStartDisabled(false);
+    setIsStarted(false);
+  }
+
+  function stopHandler() {
+    stopCounter();
+    setStopQuantity(prev => prev + 1);
   }
 };
 

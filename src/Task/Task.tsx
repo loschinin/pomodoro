@@ -2,6 +2,9 @@ import React, { FC, useState } from 'react';
 import './Task.css';
 import moment from 'moment';
 import { TaskType } from '../Main/Main';
+import ClearIcon from '@mui/icons-material/Clear';
+import Button from '@mui/material/Button';
+import { Input } from '@mui/material';
 
 const Task: FC<{
   index: number;
@@ -53,7 +56,7 @@ const Task: FC<{
       />
       <label htmlFor={index.toString()} />
       {isEdit ? (
-        <input
+        <Input
           value={editedTitle}
           onChange={e => setEditedTitle(e.target.value)}
           autoFocus
@@ -62,9 +65,9 @@ const Task: FC<{
         />
       ) : (
         <span
-          onDoubleClick={() => setIsEdit(true)}
+          onClick={() => setIsEdit(true)}
           className={'task-title'}
-          title={'Double click to Edit'}
+          title={'Click to Edit'}
         >
           {title}
         </span>
@@ -73,7 +76,9 @@ const Task: FC<{
         <span className={'task-date'}>{formattedDate}</span>
         <span className={'task-date'}>{formattedTime}</span>
       </div>
-      <button onClick={() => removeTask()}>-</button>
+      <Button onClick={() => removeTask()} variant={'contained'}>
+        <ClearIcon />
+      </Button>
     </div>
   );
 };

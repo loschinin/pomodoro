@@ -11,15 +11,11 @@
 
 .task-edit-input {
     width: 100%;
-    background-color: #282c34;
-    color: white;
-    padding: 8px 4px;
-    font-size: 20px;
 }
 
 .task-title {
     width: 100%;
-    cursor: pointer;
+    cursor: url(../pencil.png), auto;
 }
 
 .task-date {
@@ -38,6 +34,7 @@
 .task-checkbox {
     opacity: 0;
     position: absolute;
+    cursor: pointer;
 }
 
 .task-checkbox+label {
@@ -51,11 +48,11 @@
     width: 32px;
     height: 32px;
     border-radius: 50%;
-    cursor: pointer;
 }
 
 .task-checkbox:checked+label::before {
-    background-color: #6b1b24;
+    background-color: #e91e63;
+    cursor: pointer;
 }
 
 .task-checkbox:not(:disabled):active+label::before {
